@@ -8,11 +8,11 @@ import { Info } from "lucide-react";
 // Pastikan file-file ini sudah dibuat sesuai struktur folder sebelumnya
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-// import { HomeSections } from "@/components/sections/home-sections";
-// import { PublicationsSection } from "@/components/sections/publications-section";
-// import { ResearchAreas } from "@/components/sections/research-areas";
+import { HomeSections } from "@/components/sections/home-sections";
+import { PublicationsSection } from "@/components/sections/publications-section";
+import { ResearchAreas } from "@/components/sections/research-areas";
 import { BioSection } from "@/components/sections/bio-section";
-// import { ContactSection } from "@/components/sections/contact-section";
+import { ContactSection } from "@/components/sections/contact-section";
 
 // --- UI Components ---
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
@@ -23,9 +23,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select } from "@/components/ui/select";
 
-// --- Mock Data ---
-import { researchNews } from "@/data/mock-data";
 
+// --- Mock Data ---
+import { publications } from "@/data/mock-data";
 export default function Home() {
   // State Management
   const [activeTab, setActiveTab] = useState("home");
@@ -41,7 +41,7 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       <Toaster />
 
       {/* --- HEADER --- */}
@@ -54,10 +54,10 @@ export default function Home() {
       />
 
       {/* --- MAIN CONTENT --- */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="w-full flex-grow">
         
         {/* Notification Banner */}
-        <Alert className="mb-8 border-green-200 bg-green-50">
+        {/* <Alert className="mb-8 border-green-200 bg-green-50">
           <Info className="h-4 w-4 text-green-600" />
           <AlertTitle className="text-green-900">New Research Published!</AlertTitle>
           <AlertDescription className="text-green-800">
@@ -69,11 +69,11 @@ export default function Home() {
               Read more
             </button>
           </AlertDescription>
-        </Alert>
+        </Alert> */}
 
         {/* Dynamic Content Switching */}
-        {/* {activeTab === "home" && (
-          <HomeSections researchNews={researchNews} />
+        {activeTab === "home" && (
+          <HomeSections  />
         )}
 
         {activeTab === "publications" && (
@@ -85,19 +85,19 @@ export default function Home() {
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
-        )} */}
+        )}
 
-        {/* {activeTab === "research-areas" && researchAreaPage && (
+        {activeTab === "research-areas" && researchAreaPage && (
           <ResearchAreas researchArea={researchAreaPage} />
-        )} */}
+        )}
 
         {activeTab === "bio" && (
           <BioSection />
         )}
 
-        {/* {activeTab === "contact" && (
+        {activeTab === "contact" && (
           <ContactSection />
-        )} */}
+        )}
 
       </main>
 
@@ -106,7 +106,7 @@ export default function Home() {
 
       {/* --- MODALS --- */}
       <LoginDialog open={loginDialogOpen} onOpenChange={setLoginDialogOpen} />
-      <SettingsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} />
+
     </div>
   );
 }
@@ -142,29 +142,3 @@ function LoginDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (ope
   );
 }
 
-function SettingsDrawer({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
-  return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <div className="mx-auto w-full max-w-sm">
-        <div className="p-4 pb-0">
-          <div className="mt-8 space-y-6">
-            <h3 className="text-xl font-bold">Settings</h3>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2">Theme</label>
-                <Select>
-                  <option>Light</option>
-                  <option>Dark</option>
-                  <option>System</option>
-                </Select>
-              </div>
-              <Button className="w-full" onClick={() => { toast.success("Settings saved"); onOpenChange(false); }}>
-                Save Settings
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Drawer>
-  );
-}

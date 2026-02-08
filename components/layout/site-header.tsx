@@ -1,32 +1,43 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import { 
-  Leaf, Search, Settings, Menu, ChevronDown, 
-  Sun, Wind, Battery, Zap, Trash2 
+  Leaf, Menu, ChevronDown, 
+  Sun, Wind, Battery, Zap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { 
   DropdownMenu, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuContent 
 } from "@/components/ui/dropdown-menu";
-import { toast } from "sonner";
+import { cn } from "@/lib/utils"; 
 
 interface SiteHeaderProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   setResearchAreaPage: (area: string) => void;
-  onLoginClick: () => void;
-  onSettingsClick: () => void;
 }
 
 export function SiteHeader({ 
   activeTab, 
   setActiveTab, 
   setResearchAreaPage, 
-  onLoginClick, 
-  onSettingsClick 
 }: SiteHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isResearchMobileOpen, setIsResearchMobileOpen] = useState(false);
+  
+  // STATE SCROLL: Untuk mendeteksi apakah user sedang scroll ke bawah
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Helper untuk styling tombol navigasi
+  useEffect(() => {
+    const handleScroll = () => {
+      // Jika scroll lebih dari 20px, aktifkan mode compact
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const getNavClass = (isActive: boolean) => 
     isActive 
       ? "bg-white text-green-700 hover:bg-white/90" 
@@ -35,27 +46,60 @@ export function SiteHeader({
   const handleMobileNav = (tab: string) => {
     setActiveTab(tab);
     setMobileMenuOpen(false);
+    setIsResearchMobileOpen(false); 
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900 shadow-lg">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-8">
+    <header 
+      className={cn(
+        "sticky top-0 z-40 w-full border-b bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900 shadow-lg transition-all duration-300 ease-in-out",
+        // Padding mengecil saat discroll
+        isScrolled ? "py-2" : "py-6" 
+      )}
+    >
+      <div className="container mx-auto px-4 md:px-24">
+        <div 
+          className={cn(
+            "flex transition-all duration-300",
+            // LOGIKA LAYOUT:
+            // Jika discroll: Baris (Row) kiri-kanan
+            // Jika diatas: Kolom (Col) atas-bawah
+            isScrolled 
+              ? "flex-row items-center justify-between" 
+              : "flex-col items-center gap-6 justify-center"
+          )}
+        >
           
-          {/* Logo Section */}
-          <div className="flex items-center gap-4">
-            <Leaf className="h-16 w-16 text-white flex-shrink-0" />
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+          {/* --- LOGO SECTION --- */}
+          <div className="flex items-center gap-3 transition-all duration-300">
+            <Leaf 
+              className={cn(
+                "text-white flex-shrink-0 transition-all duration-300",
+                isScrolled ? "h-8 w-8" : "h-16 w-16"
+              )} 
+            />
+            <div className={cn("text-center md:text-left transition-all")}>
+              <h1 
+                className={cn(
+                  "font-bold text-white tracking-tight leading-tight transition-all duration-300",
+                  isScrolled ? "text-xl" : "text-4xl md:text-5xl"
+                )}
+              >
                 Green Energy Lab
               </h1>
-              <p className="text-lg md:text-xl text-green-100 font-light tracking-wide mt-1">
+              {/* Subtitle disembunyikan saat scroll agar muat satu baris */}
+              <p 
+                className={cn(
+                  "text-green-100 font-light tracking-wide transition-all duration-300 overflow-hidden",
+                  isScrolled ? "h-0 opacity-0 mt-0" : "h-auto opacity-100 mt-1 text-sm md:text-xl"
+                )}
+              >
                 Powering Tomorrow's Solutions
-              </p>  
+              </p>
             </div>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* --- DESKTOP NAVIGATION --- */}
           <nav className="hidden md:flex items-center gap-1">
             <Button
               variant={activeTab === "home" ? "default" : "ghost"}
@@ -65,7 +109,6 @@ export function SiteHeader({
               Home
             </Button>
             
-            {/* Research Areas Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -97,7 +140,7 @@ export function SiteHeader({
               onClick={() => setActiveTab("publications")}
               className={getNavClass(activeTab === "publications")}
             >
-              Research Publications
+              Publications
             </Button>
             <Button
               variant={activeTab === "bio" ? "default" : "ghost"}
@@ -115,52 +158,73 @@ export function SiteHeader({
             </Button>
           </nav>
 
-          {/* Desktop Icons */}
-          <div className="hidden md:flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-              <Search className="h-5 w-5" />
+          {/* Mobile Menu Toggle (Tetap muncul di kanan untuk mobile) */}
+          <div className={cn("md:hidden absolute right-4 top-8", isScrolled && "top-3")}>
+             <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:bg-white/20"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <Menu className="h-6 w-6" />
             </Button>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-                  <Settings className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={onLoginClick}>Login</DropdownMenuItem>
-                <DropdownMenuItem onClick={onSettingsClick}>Settings</DropdownMenuItem>
-                <DropdownMenuItem destructive onClick={() => toast.error("Action cancelled")}>
-                  <Trash2 className="h-4 w-4 mr-2" /> Delete Data
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
-
-          {/* Mobile Menu Toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden text-white hover:bg-white/20"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <Menu className="h-5 w-5" />
-          </Button>
         </div>
 
-        {/* Mobile Navigation Content */}
+        {/* --- MOBILE MENU CONTENT (Sama seperti sebelumnya) --- */}
         {mobileMenuOpen && (
-          <nav className="md:hidden py-4 space-y-2 border-t border-white/20">
-            {["home", "publications", "bio", "contact"].map((tab) => (
-              <Button
-                key={tab}
-                variant="ghost"
-                className="w-full justify-start text-white hover:bg-white/20 capitalize"
-                onClick={() => handleMobileNav(tab)}
-              >
-                {tab}
-              </Button>
-            ))}
+          <nav className="md:hidden py-4 space-y-1 border-t border-white/20 animate-in slide-in-from-top-2 mt-2">
+            <Button
+              variant="ghost"
+              className={cn(
+                "w-full justify-start text-white hover:bg-white/20",
+                activeTab === "home" && "bg-white/10"
+              )}
+              onClick={() => handleMobileNav("home")}
+            >
+              Home
+            </Button>
+
+            <Button
+              variant="ghost"
+              className="w-full justify-between text-white hover:bg-white/20"
+              onClick={() => setIsResearchMobileOpen(!isResearchMobileOpen)}
+            >
+              Research Areas
+              <ChevronDown 
+                className={cn(
+                  "h-4 w-4 transition-transform duration-200",
+                  isResearchMobileOpen ? "rotate-180" : ""
+                )} 
+              />
+            </Button>
+
+            {isResearchMobileOpen && (
+              <div className="bg-black/20 rounded-md mx-2 overflow-hidden">
+                <Button variant="ghost" className="w-full justify-start text-green-100 pl-8 text-sm hover:bg-white/10" onClick={() => { setActiveTab("research-areas"); setResearchAreaPage("solar"); setMobileMenuOpen(false); }}>
+                  <Sun className="mr-2 h-4 w-4" /> Solar Energy
+                </Button>
+                <Button variant="ghost" className="w-full justify-start text-green-100 pl-8 text-sm hover:bg-white/10" onClick={() => { setActiveTab("research-areas"); setResearchAreaPage("wind"); setMobileMenuOpen(false); }}>
+                  <Wind className="mr-2 h-4 w-4" /> Wind Power
+                </Button>
+                <Button variant="ghost" className="w-full justify-start text-green-100 pl-8 text-sm hover:bg-white/10" onClick={() => { setActiveTab("research-areas"); setResearchAreaPage("storage"); setMobileMenuOpen(false); }}>
+                  <Battery className="mr-2 h-4 w-4" /> Energy Storage
+                </Button>
+                 <Button variant="ghost" className="w-full justify-start text-green-100 pl-8 text-sm hover:bg-white/10" onClick={() => { setActiveTab("research-areas"); setResearchAreaPage("grid"); setMobileMenuOpen(false); }}>
+                  <Zap className="mr-2 h-4 w-4" /> Smart Grid
+                </Button>
+              </div>
+            )}
+
+            <Button variant="ghost" className={cn("w-full justify-start text-white hover:bg-white/20", activeTab === "publications" && "bg-white/10")} onClick={() => handleMobileNav("publications")}>
+              Publications
+            </Button>
+            <Button variant="ghost" className={cn("w-full justify-start text-white hover:bg-white/20", activeTab === "bio" && "bg-white/10")} onClick={() => handleMobileNav("bio")}>
+              Bio
+            </Button>
+            <Button variant="ghost" className={cn("w-full justify-start text-white hover:bg-white/20", activeTab === "contact" && "bg-white/10")} onClick={() => handleMobileNav("contact")}>
+              Contact
+            </Button>
           </nav>
         )}
       </div>

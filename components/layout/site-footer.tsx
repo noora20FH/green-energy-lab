@@ -3,6 +3,7 @@ import { Leaf, Sun, Wind, Battery, Zap, Twitter, Facebook, Youtube, Instagram } 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
+import Image from "next/image";
 
 interface SiteFooterProps {
   setActiveTab: (tab: string) => void;
@@ -10,15 +11,15 @@ interface SiteFooterProps {
 
 export function SiteFooter({ setActiveTab }: SiteFooterProps) {
   return (
-    <footer className="border-t mt-16 py-12 bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900">
-      <div className="container mx-auto px-4">
+    <footer className="border-t py-12 bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900">
+      <div className="container mx-auto px-24">
         <div className="grid md:grid-cols-4 gap-8">
           
           {/* Brand Info */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Leaf className="h-6 w-6 text-green-400" />
-              <h3 className="font-bold text-white">Smart Green Energy Lab</h3>
+              <Image src="/logo.png" alt="Logo" className="h-6 w-6 flex-shrink-0" width={24} height={24} />
+              <h3 className="font-bold text-white">Green Energy Lab</h3>
             </div>
             <p className="text-sm text-green-100">
               Leading research in sustainable energy solutions for a greener future.

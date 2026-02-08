@@ -12,71 +12,79 @@ export const researchTopics = [
   { value: "battery", label: "Energy Storage" },
   { value: "grid", label: "Smart Grid" },
 ];
-
+export const professorProfile = {
+  name: "Prof. James Wilson",
+  role: "Principal Investigator",
+  image: "https://images.unsplash.com/photo-1758685734614-63fe30c18b79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzb3IlMjBzY2llbnRpc3QlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NzAyOTAyNzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+  badges: ["PhD, MIT", "IEEE Fellow"],
+  contact: {
+    email: "j.wilson@university.edu",
+    phone: "+1 (555) 123-4567",
+    location: "Building 5, Room 301, Green Energy Lab"
+  },
+  biography: [
+    "Professor James Wilson is a leading researcher in sustainable energy systems with over 20 years of experience in the field. He received his PhD from MIT in 2008 and has since published more than 150 peer-reviewed papers in top-tier journals.",
+    "His groundbreaking work on advanced photovoltaic systems has earned him numerous accolades, including the prestigious IEEE Medal for Environmental Excellence and the National Science Foundation CAREER Award.",
+    "Professor Wilson's current research focuses on integrating artificial intelligence with renewable energy systems to create smarter, more efficient power grids. He is passionate about mentoring the next generation of scientists and currently leads a diverse team of 15 PhD students and postdoctoral researchers.",
+    "Beyond his academic work, Prof. Wilson advises several governmental bodies on renewable energy policy and serves on the board of the International Solar Energy Society."
+  ],
+  education: [
+    {
+      degree: "PhD in Electrical Engineering",
+      institution: "Massachusetts Institute of Technology",
+      year: "2008"
+    },
+    {
+      degree: "MS in Energy Systems",
+      institution: "Stanford University",
+      year: "2004"
+    },
+    {
+      degree: "BS in Physics",
+      institution: "Caltech",
+      year: "2002"
+    }
+  ],
+  awards: [
+    { title: "IEEE Medal for Environmental Excellence", year: "2022" },
+    { title: "NSF CAREER Award", year: "2015" },
+    { title: "Global Energy Prize Finalist", year: "2020" }
+  ]
+};
 export const teamMembers = [
   {
     name: "Dr. Sarah Chen",
     role: "Senior Researcher",
     expertise: "Solar Energy",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsc2llbnRpc3QlMjBmZW1hbGV8ZW58MXx8fHwxNzcwMzQ2MjUxfDA&ixlib=rb-4.1.0&q=80&w=400"
   },
   {
     name: "Dr. Michael Rodriguez",
     role: "Research Associate",
     expertise: "Energy Storage",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw3fHxwcm9mZXNzaW9uYWwlMjBtYW58ZW58MXx8fHwxNzcwMzQ2Mjc4fDA&ixlib=rb-4.1.0&q=80&w=400"
   },
   {
     name: "Dr. Emily Thompson",
     role: "Postdoctoral Fellow",
     expertise: "Wind Power",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyM3x8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MXx8fHwxNzcwMzQ2MjkzfDA&ixlib=rb-4.1.0&q=80&w=400"
+  },
+  {
+    name: "Dr. Alex Martinez",
+    role: "Wind Analytics Lead",
+    expertise: "Data Science",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxNXx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDF8fHx8MTc3MDM0NjI3OHww&ixlib=rb-4.1.0&q=80&w=400"
+  },
+   {
+    name: "Dr. Sophie Laurent",
+    role: "Thermal Systems",
+    expertise: "Thermodynamics",
+    image: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzNHx8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MXx8fHwxNzcwMzQ2MjkzfDA&ixlib=rb-4.1.0&q=80&w=400"
   },
 ];
 
-export const researchNews = [
-  {
-    id: 1,
-    type: "PUBLICATION",
-    date: "Oct 12, 2025",
-    title: "Breakthrough in Perovskite Stability",
-    description:
-      "Our latest findings on moisture-resistant solar cells published in Nature Energy.",
-    color: "bg-green-100 text-green-700",
-  },
-  {
-    id: 2,
-    type: "GRANT",
-    date: "Oct 05, 2025",
-    title: "$1.2M DOE Research Award",
-    description:
-      "Department of Energy funds our next-generation battery storage project.",
-    color: "bg-green-100 text-green-700",
-  },
-  {
-    id: 3,
-    type: "SEMINAR",
-    date: "Sep 28, 2025",
-    title: "International Conference Keynote",
-    description: "Prof. Wilson presents at IEEE Green Energy Summit in Tokyo.",
-    color: "bg-green-100 text-green-700",
-  },
-  {
-    id: 4,
-    type: "COPYRIGHT",
-    date: "Sep 15, 2025",
-    title: "Patent Granted for Smart Grid Algorithm",
-    description:
-      "Our innovative load balancing system receives US patent approval.",
-    color: "bg-green-100 text-green-700",
-  },
-  {
-    id: 5,
-    type: "PROTOTYPE",
-    date: "Sep 01, 2025",
-    title: "Field Testing of Wind Optimization System",
-    description:
-      "Real-world deployment shows 23% efficiency improvement in wind farms.",
-    color: "bg-green-100 text-green-700",
-  },
-];
+
 
 // ... (pindahkan data publications dan stats di sini juga jika perlu)
 export const publications = [
