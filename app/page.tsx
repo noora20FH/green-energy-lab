@@ -2,10 +2,8 @@
 
 import React, { useState } from "react";
 import { Toaster, toast } from "sonner";
-import { Info } from "lucide-react";
 
 // --- Imports Layout & Components ---
-// Pastikan file-file ini sudah dibuat sesuai struktur folder sebelumnya
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { HomeSections } from "@/components/sections/home-sections";
@@ -15,23 +13,19 @@ import { BioSection } from "@/components/sections/bio-section";
 import { ContactSection } from "@/components/sections/contact-section";
 
 // --- UI Components ---
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
-import { Drawer } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Select } from "@/components/ui/select";
 
-
-// --- Mock Data ---
-import { publications } from "@/data/mock-data";
 export default function Home() {
   // State Management
   const [activeTab, setActiveTab] = useState("home");
   const [researchAreaPage, setResearchAreaPage] = useState("");
   
-  // Dialog & Drawer States
+  // Dialog & Drawer States 
+  // (Still kept here in case you want to trigger them from elsewhere later, 
+  // even though header buttons are gone)
   const [loginDialogOpen, setLoginDialogOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -45,58 +39,49 @@ export default function Home() {
       <Toaster />
 
       {/* --- HEADER --- */}
+      {/* FIX: Removed onLoginClick and onSettingsClick because they were removed from SiteHeader */}
       <SiteHeader 
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         setResearchAreaPage={setResearchAreaPage}
-        onLoginClick={() => setLoginDialogOpen(true)}
-        onSettingsClick={() => setDrawerOpen(true)}
       />
 
       {/* --- MAIN CONTENT --- */}
       <main className="w-full flex-grow">
         
-        {/* Notification Banner */}
-        {/* <Alert className="mb-8 border-green-200 bg-green-50">
-          <Info className="h-4 w-4 text-green-600" />
-          <AlertTitle className="text-green-900">New Research Published!</AlertTitle>
-          <AlertDescription className="text-green-800">
-            Our latest paper on advanced solar cell efficiency has been featured in Nature Energy.
-            <button 
-              className="underline ml-1 font-medium hover:text-green-900" 
-              onClick={() => toast.success("Redirecting...")}
-            >
-              Read more
-            </button>
-          </AlertDescription>
-        </Alert> */}
-
         {/* Dynamic Content Switching */}
         {activeTab === "home" && (
           <HomeSections  />
         )}
 
         {activeTab === "publications" && (
-          <PublicationsSection
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            selectedTopic={selectedTopic}
-            setSelectedTopic={setSelectedTopic}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          <div className="container mx-auto px-4 md:px-24 py-8">
+            <PublicationsSection
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              selectedTopic={selectedTopic}
+              setSelectedTopic={setSelectedTopic}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
         )}
 
         {activeTab === "research-areas" && researchAreaPage && (
-          <ResearchAreas researchArea={researchAreaPage} />
+          <div className="container mx-auto px-4 md:px-24 py-8">
+            <ResearchAreas researchArea={researchAreaPage} />
+          </div>
         )}
 
         {activeTab === "bio" && (
+          // BioSection already has its own padding/container logic inside
           <BioSection />
         )}
 
         {activeTab === "contact" && (
-          <ContactSection />
+           <div className="container mx-auto px-4 md:px-24 py-8">
+            <ContactSection />
+          </div>
         )}
 
       </main>
@@ -125,12 +110,22 @@ function LoginDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (ope
         <div className="p-6 pt-4">
            <Card className="border-0 shadow-none">
              <CardContent className="space-y-4 p-0">
+                {/* FIX: Pisahkan Label dari Input */}
                 <div className="space-y-2">
-                  <Input label="Email" type="email" placeholder="researcher@university.edu" />
+                  <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Email
+                  </label>
+                  <Input id="email" type="email" placeholder="researcher@university.edu" />
                 </div>
+                
+                {/* FIX: Pisahkan Label dari Input */}
                 <div className="space-y-2">
-                  <Input label="Password" type="password" placeholder="••••••••" />
+                  <label htmlFor="password" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Password
+                  </label>
+                  <Input id="password" type="password" placeholder="••••••••" />
                 </div>
+
                 <Button className="w-full bg-green-600 hover:bg-green-700" onClick={() => { toast.success("Logged in successfully"); onOpenChange(false); }}>
                   Sign In
                 </Button>
@@ -141,4 +136,3 @@ function LoginDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (ope
     </Dialog>
   );
 }
-

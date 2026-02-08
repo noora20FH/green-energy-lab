@@ -59,13 +59,7 @@ export function PublicationsSection({
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full md:w-80 border-green-200 focus:border-green-500 focus:ring-green-500"
             />
-            <Combobox
-              options={researchTopics}
-              value={selectedTopic}
-              onChange={setSelectedTopic} // Pastikan Combobox Anda menerima prop onChange
-              placeholder="Filter by topic"
-              className="w-full sm:w-48"
-            />
+            
           </div>
         </div>
       </div>
@@ -98,12 +92,7 @@ export function PublicationsSection({
 
       {/* Pagination (Opsional: Disembunyikan jika hasil filter sedikit) */}
       {filteredPublications.length > 0 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={2} // Logika total pages bisa dibuat dinamis nanti
-          onPageChange={setCurrentPage}
-          className="justify-center pt-8"
-        />
+        <Pagination className="justify-center pt-8" />
       )}
     </div>
   )
