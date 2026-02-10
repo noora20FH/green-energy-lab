@@ -5,15 +5,17 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ExternalLink, Quote, Lightbulb } from "lucide-react";
 
+// IMPORT DATA MASTER UNTUK LOOKUP (JOIN DATA)
+import { researchAreas, publicationTypes } from "@/data/mock-data";
+
 interface Publication {
   id: number;
   title: string;
+  researchAreaId: string;
   authors: string;
   journal: string;
   year: number;
-  researchTopic: string;
-  type: string;
-  typeColor: string;
+  typeId: number; // Update: Menggunakan typeId (number) bukan string
   summary: string;
   keywords: string[];
   url: string;
@@ -23,9 +25,20 @@ interface PublicationCardProps {
   publication: Publication;
 }
 
-export function PublicationCard({
-  publication,
-}: PublicationCardProps) {
+export function PublicationCard({ publication }: PublicationCardProps) {
+  
+  // --- LOGIC LOOKUP / JOIN DATA ---
+  // 1. Cari Data Tipe Publikasi berdasarkan ID
+  const typeData = publicationTypes.find((t) => t.id === publication.typeId);
+  
+  // 2. Cari Data Research Area berdasarkan ID
+  const areaData = researchAreas.find((a) => a.id === publication.researchAreaId);
+
+  // Fallback jika data tidak ditemukan (Safety check)
+  const typeName = typeData ? typeData.name : "Unknown Type";
+  const typeColor = typeData ? typeData.color : "bg-gray-100 text-gray-800";
+  const areaName = areaData ? areaData.title : publication.researchAreaId;
+
   return (
     <Card className="hover:shadow-xl transition-all duration-300 border-l-4 border-l-green-500 bg-gradient-to-br from-white to-green-50/30">
       <CardContent className="p-6">
@@ -45,10 +58,10 @@ export function PublicationCard({
             <Badge className="bg-gradient-to-r from-green-600 to-emerald-600 text-white text-lg px-3 py-1">
               {publication.year}
             </Badge>
-            <Badge
-              className={`${publication.typeColor} font-semibold`}
-            >
-              {publication.type}
+            
+            {/* BADGE TIPE PUBLIKASI (DINAMIS) */}
+            <Badge className={`font-semibold ${typeColor}`}>
+              {typeName}
             </Badge>
           </div>
         </div>
@@ -63,7 +76,8 @@ export function PublicationCard({
           <div className="flex items-center gap-2 text-sm">
             <div className="px-3 py-1 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 rounded-full font-medium flex items-center gap-1">
               <Lightbulb className="h-3.5 w-3.5" />
-              {publication.researchTopic}
+              {/* NAMA AREA RISET (DINAMIS) */}
+              {areaName}
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ import { PublicationCard } from '@/components/shared/publication-card'
 import { FileSearch } from 'lucide-react'
 
 // IMPORT DATA DARI MOCK-DATA
-import { publications, researchTopics } from '@/data/mock-data'
+import { publications} from '@/data/mock-data'
 
 interface PublicationsSectionProps {
   searchQuery: string
@@ -52,7 +52,7 @@ export function PublicationsSection({
       pub.authors.toLowerCase().includes(query);
 
     const matchesTopic = selectedTopic 
-      ? pub.researchTopic === selectedTopic 
+      ? pub.researchAreaId === selectedTopic 
       : true;
 
     return matchesSearch && matchesTopic;

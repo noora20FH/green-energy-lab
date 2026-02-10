@@ -1,97 +1,113 @@
-import {
-  Lightbulb,
-  BookOpen,
-  Award,
-  GraduationCap,
-  BarChart3,
-} from "lucide-react";
+// data/mock-data.ts
 
-export const researchTopics = [
-  { value: "solar", label: "Solar Energy" },
-  { value: "wind", label: "Wind Power" },
-  { value: "battery", label: "Energy Storage" },
-  { value: "grid", label: "Smart Grid" },
+export type ResearchAreaId = "solar" | "wind" | "storage" | "grid";
+
+// 1. TABEL AREA PENELITIAN (Utama)
+export const researchAreas = [
+  {
+    id: "solar" as ResearchAreaId,
+    title: "Solar Energy Systems",
+    iconName: "Sun",
+    gradient: "from-yellow-500 via-orange-500 to-red-500",
+    image: "https://images.unsplash.com/photo-1542336391-ae2936d8efe4?q=80&w=1080",
+    description: "Developing next-generation photovoltaic technologies to maximize efficiency.",
+    overview: "The Solar Energy Systems group is at the forefront of renewable energy research, pioneering breakthrough technologies in photovoltaic cells and solar thermal systems.",
+    teamImages: [
+      "https://images.unsplash.com/photo-1693932038683-7c35401f5307?q=80&w=1080",
+      "https://images.unsplash.com/photo-1758685848587-7bc7487b6e85?q=80&w=1080"
+    ],
+    keyAreas: ["Advanced Photovoltaic Materials", "Perovskite Solar Cells", "Tandem Cell Architecture", "BIPV Systems"],
+  },
+  {
+    id: "wind" as ResearchAreaId,
+    title: "Wind Power Optimization",
+    iconName: "Wind",
+    gradient: "from-blue-500 via-cyan-500 to-teal-500",
+    image: "https://images.unsplash.com/photo-1631874890489-71b1ab6aefb7?q=80&w=1080",
+    description: "Leveraging AI to optimize wind farm performance and turbine design.",
+    overview: "Our Wind Power group combines advanced computational fluid dynamics with machine learning to revolutionize turbine performance and farm layout.",
+    teamImages: ["https://images.unsplash.com/photo-1673236394928-fdd8ec9d3619?q=80&w=1080"],
+    keyAreas: ["ML for Wind Prediction", "Aerodynamic Optimization", "Offshore Wind Technology", "Wake Effect Mitigation"],
+  },
+  {
+    id: "storage" as ResearchAreaId,
+    title: "Energy Storage Solutions",
+    iconName: "Battery",
+    gradient: "from-green-500 via-emerald-500 to-teal-500",
+    image: "https://images.unsplash.com/photo-1591964006776-90b32e88f5ec?q=80&w=1080",
+    description: "Developing next-generation battery technologies for grid-scale storage.",
+    overview: "We focus on safe, high-density, and long-lasting storage solutions, from solid-state batteries to advanced flow battery systems.",
+    teamImages: ["https://images.unsplash.com/photo-1591964006776-90b32e88f5ec?q=80&w=1080"],
+    keyAreas: ["Solid-State Batteries", "Redox Flow Systems", "Thermal Management", "Battery Recycling Tech"],
+  },
+  {
+    id: "grid" as ResearchAreaId,
+    title: "Smart Grid Technology",
+    iconName: "Zap",
+    gradient: "from-orange-500 via-amber-500 to-yellow-500",
+    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=1080",
+    description: "Pioneering intelligent load distribution and automated resource allocation.",
+    overview: "The Smart Grid group develops AI-driven infrastructure to handle the intermittent nature of renewable energy while maintaining grid stability.",
+    teamImages: ["https://images.unsplash.com/photo-1588317769568-a50fd5b6143b?q=80&w=1080"],
+    keyAreas: ["Demand Response AI", "Microgrid Control", "V2G Integration", "Grid Cybersecurity"],
+  }
 ];
+
+// 2. TABEL PROFESSOR PROFILE
 export const professorProfile = {
   name: "Prof. James Wilson",
   role: "Principal Investigator",
-  image:
-    "https://images.unsplash.com/photo-1758685734614-63fe30c18b79?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzb3IlMjBzY2llbnRpc3QlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NzAyOTAyNzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+  image: "https://images.unsplash.com/photo-1758685734614-63fe30c18b79?q=80&w=1080",
   badges: ["PhD, MIT", "IEEE Fellow"],
   contact: {
     email: "j.wilson@university.edu",
     phone: "+1 (555) 123-4567",
-    location: "Building 5, Room 301, Green Energy Lab",
+    location: "Building 5, Room 301, Green Energy Lab"
   },
   biography: `Professor James Wilson is a leading researcher in sustainable energy systems with over 20 years of experience in the field. He received his PhD from MIT in 2008 and has since published more than 150 peer-reviewed papers in top-tier journals.
 
 His groundbreaking work on advanced photovoltaic systems has earned him numerous accolades, including the prestigious IEEE Medal for Environmental Excellence and the National Science Foundation CAREER Award.
 
-Professor Wilson's current research focuses on integrating artificial intelligence with renewable energy systems to create smarter, more efficient power grids. He is passionate about mentoring the next generation of scientists and currently leads a diverse team of 15 PhD students and postdoctoral researchers.
-
-Beyond his academic work, Prof. Wilson advises several governmental bodies on renewable energy policy and serves on the board of the International Solar Energy Society.`,
+Professor Wilson's current research focuses on integrating artificial intelligence with renewable energy systems to create smarter, more efficient power grids. He is passionate about mentoring the next generation of scientists and currently leads a diverse team.`,
   education: [
-    {
-      degree: "PhD in Electrical Engineering",
-      institution: "Massachusetts Institute of Technology",
-      year: "2008",
-    },
-    {
-      degree: "MS in Energy Systems",
-      institution: "Stanford University",
-      year: "2004",
-    },
-    {
-      degree: "BS in Physics",
-      institution: "Caltech",
-      year: "2002",
-    },
+    { degree: "PhD in Electrical Engineering", institution: "MIT", year: "2008" },
+    { degree: "MS in Energy Systems", institution: "Stanford University", year: "2004" }
   ],
   awards: [
     { title: "IEEE Medal for Environmental Excellence", year: "2022" },
-    { title: "NSF CAREER Award", year: "2015" },
-    { title: "Global Energy Prize Finalist", year: "2020" },
-  ],
+    { title: "NSF CAREER Award", year: "2015" }
+  ]
 };
-export const teamMembers = [
-  {
-    name: "Dr. Sarah Chen",
-    role: "Senior Researcher",
-    expertise: "Solar Energy",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsc2llbnRpc3QlMjBmZW1hbGV8ZW58MXx8fHwxNzcwMzQ2MjUxfDA&ixlib=rb-4.1.0&q=80&w=400",
-  },
-  {
-    name: "Dr. Michael Rodriguez",
-    role: "Research Associate",
-    expertise: "Energy Storage",
-    image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHw3fHxwcm9mZXNzaW9uYWwlMjBtYW58ZW58MXx8fHwxNzcwMzQ2Mjc4fDA&ixlib=rb-4.1.0&q=80&w=400",
-  },
-  {
-    name: "Dr. Emily Thompson",
-    role: "Postdoctoral Fellow",
-    expertise: "Wind Power",
-    image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyM3x8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MXx8fHwxNzcwMzQ2MjkzfDA&ixlib=rb-4.1.0&q=80&w=400",
-  },
-  {
-    name: "Dr. Alex Martinez",
-    role: "Wind Analytics Lead",
-    expertise: "Data Science",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxNXx8cHJvZmVzc2lvbmFsJTIwbWFufGVufDF8fHx8MTc3MDM0NjI3OHww&ixlib=rb-4.1.0&q=80&w=400",
-  },
-  {
-    name: "Dr. Sophie Laurent",
-    role: "Thermal Systems",
-    expertise: "Thermodynamics",
-    image:
-      "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwzNHx8cHJvZmVzc2lvbmFsJTIwd29tYW58ZW58MXx8fHwxNzcwMzQ2MjkzfDA&ixlib=rb-4.1.0&q=80&w=400",
-  },
+
+// 3. TABEL PROJECTS (Relasi: researchAreaId)
+export const projects = [
+  { id: 1, researchAreaId: "solar", title: "Perovskite-Silicon Tandem Cells", description: "Achieving >30% efficiency in tandem solar cells.", funding: "$2.5M NSF Grant", status: "Active" },
+  { id: 2, researchAreaId: "wind", title: "AI-Driven Wind Farm Control", description: "ML algorithms to optimize turbine positioning.", funding: "$3.2M DOE Grant", status: "Active" },
+  { id: 3, researchAreaId: "storage", title: "Solid-State Lithium Batteries", description: "2x energy density batteries for EVs.", funding: "$4.5M ARPA-E", status: "Active" },
+  { id: 4, researchAreaId: "grid", title: "AI-Powered Grid Optimization", description: "Predictive demand patterns for city-scale grids.", funding: "$3.8M DOE Grant", status: "Active" },
+  { id: 5, researchAreaId: "solar", title: "BIPV Glass Innovation", description: "Transparent solar cells for skyscraper windows.", funding: "$1.2M Industry Fund", status: "Pending" },
+  { id: 6, researchAreaId: "wind", title: "Offshore Wake Mitigation", description: "Reducing energy loss in large offshore farms.", funding: "$2.1M EU Research", status: "Completed" }
 ];
 
-// ... (pindahkan data publications dan stats di sini juga jika perlu)
+// 4. TABEL TEAM MEMBERS (Relasi: researchAreaId)
+export const teamMembers = [
+  { id: 1, researchAreaId: "solar", name: "Dr. Sarah Chen", role: "Senior Researcher", expertise: "Materials Science", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400" },
+  { id: 2, researchAreaId: "storage", name: "Dr. Michael Rodriguez", role: "Associate Researcher", expertise: "Electrochemistry", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400" },
+  { id: 3, researchAreaId: "wind", name: "Dr. Emily Thompson", role: "Postdoc Fellow", expertise: "Fluid Dynamics", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=400" },
+  { id: 4, researchAreaId: "grid", name: "Dr. Kevin Park", role: "Senior Engineer", expertise: "Power Systems", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400" },
+  { id: 5, researchAreaId: "grid", name: "Dr. Lisa Wang", role: "Research Associate", expertise: "Cybersecurity", image: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=400" }
+];
+
+// --- 2. TABEL PUBLICATION TYPES (Master) ---
+export const publicationTypes = [
+  { id: 1, name: "Journal Paper", color: "bg-blue-100 text-blue-700" },
+  { id: 2, name: "Seminar Paper", color: "bg-purple-100 text-purple-700" },
+  { id: 3, name: "Copyright", color: "bg-orange-100 text-orange-700" },
+  { id: 4, name: "Prototype", color: "bg-green-100 text-green-700" },
+  { id: 5, name: "Applied Technology", color: "bg-teal-100 text-teal-700" },
+];
+
+// --- 3. TABEL PUBLICATIONS (Relational) ---
 export const publications = [
   {
     id: 1,
@@ -99,18 +115,10 @@ export const publications = [
     authors: "Dr. Sarah Chen, Dr. Michael Rodriguez, Prof. James Wilson",
     journal: "Nature Energy",
     year: 2024,
-    researchTopic: "Solar Energy",
-    type: "Journal Paper",
-    typeColor: "bg-blue-100 text-blue-700",
-    summary:
-      "This research presents groundbreaking advancements in perovskite solar cell technology, achieving a record-breaking 28.5% efficiency through novel material composition and manufacturing techniques. Our findings demonstrate significant improvements in long-term stability and cost-effectiveness.",
-    keywords: [
-      "Perovskite",
-      "Solar Cells",
-      "Efficiency",
-      "Renewable Energy",
-      "Materials Science",
-    ],
+    researchAreaId: "solar",
+    typeId: 1, // Journal Paper
+    summary: "This research presents groundbreaking advancements in perovskite solar cell technology...",
+    keywords: ["Perovskite", "Solar Cells", "Efficiency"],
     url: "https://nature.com/articles/example1",
   },
   {
@@ -119,18 +127,10 @@ export const publications = [
     authors: "Prof. James Wilson, Dr. Emily Thompson",
     journal: "IEEE Green Energy Summit 2023",
     year: 2023,
-    researchTopic: "Wind Power",
-    type: "Seminar Paper",
-    typeColor: "bg-purple-100 text-purple-700",
-    summary:
-      "We present an AI-driven system that optimizes wind turbine positioning and operational parameters in real-time, resulting in a 23% increase in energy output. The system uses deep learning to predict wind patterns and adjust turbine angles accordingly.",
-    keywords: [
-      "Machine Learning",
-      "Wind Energy",
-      "Optimization",
-      "AI",
-      "Predictive Analytics",
-    ],
+    researchAreaId: "wind",
+    typeId: 2, // Seminar Paper
+    summary: "We present an AI-driven system that optimizes wind turbine positioning...",
+    keywords: ["Machine Learning", "Wind Energy", "AI"],
     url: "https://ieee.org/papers/example2",
   },
   {
@@ -139,18 +139,10 @@ export const publications = [
     authors: "Dr. Sarah Chen, Dr. Michael Rodriguez",
     journal: "Energy Storage Materials",
     year: 2023,
-    researchTopic: "Energy Storage",
-    type: "Journal Paper",
-    typeColor: "bg-blue-100 text-blue-700",
-    summary:
-      "Development of solid-state lithium-ion batteries with enhanced safety features and 40% higher energy density compared to conventional liquid electrolyte systems. This technology enables more efficient grid-scale renewable energy storage.",
-    keywords: [
-      "Battery Technology",
-      "Energy Storage",
-      "Solid-State",
-      "Grid Systems",
-      "Lithium-Ion",
-    ],
+    researchAreaId: "storage",
+    typeId: 1, // Journal Paper
+    summary: "Development of solid-state lithium-ion batteries with enhanced safety features...",
+    keywords: ["Battery Technology", "Energy Storage", "Solid-State"],
     url: "https://sciencedirect.com/article/example3",
   },
   {
@@ -159,18 +151,10 @@ export const publications = [
     authors: "Dr. Michael Rodriguez, Prof. James Wilson, Dr. Lisa Wang",
     journal: "US Patent Office",
     year: 2024,
-    researchTopic: "Smart Grid",
-    type: "Copyright",
-    typeColor: "bg-orange-100 text-orange-700",
-    summary:
-      "Patented algorithm for intelligent load distribution in smart grids, reducing energy waste by 18% through predictive demand modeling and automated resource allocation across distributed energy sources.",
-    keywords: [
-      "Smart Grid",
-      "Patent",
-      "Load Balancing",
-      "Energy Management",
-      "Algorithm",
-    ],
+    researchAreaId: "grid",
+    typeId: 3, // Copyright
+    summary: "Patented algorithm for intelligent load distribution in smart grids...",
+    keywords: ["Smart Grid", "Patent", "Algorithm"],
     url: "https://patents.google.com/example4",
   },
   {
@@ -179,18 +163,10 @@ export const publications = [
     authors: "Dr. Emily Zhang, Dr. Alex Martinez, Engineering Team",
     journal: "Smart Green Energy Lab",
     year: 2025,
-    researchTopic: "Solar Energy",
-    type: "Prototype",
-    typeColor: "bg-green-100 text-green-700",
-    summary:
-      "Developed a fully autonomous robot system for cleaning large-scale solar installations, improving panel efficiency by 15% while reducing maintenance costs by 60%. The prototype uses AI-based navigation and waterless cleaning technology.",
-    keywords: [
-      "Robotics",
-      "Solar Maintenance",
-      "Automation",
-      "Prototype",
-      "Innovation",
-    ],
+    researchAreaId: "solar",
+    typeId: 4, // Prototype
+    summary: "Developed a fully autonomous robot system for cleaning solar installations...",
+    keywords: ["Robotics", "Solar Maintenance", "Prototype"],
     url: "https://smartgreenenergy.edu/prototypes/solar-robot",
   },
   {
@@ -199,18 +175,18 @@ export const publications = [
     authors: "Dr. Kevin Park, Dr. Sophie Laurent, Industrial Partners",
     journal: "Department of Energy Technology Transfer",
     year: 2024,
-    researchTopic: "Energy Storage",
-    type: "Applied Technology",
-    typeColor: "bg-teal-100 text-teal-700",
-    summary:
-      "Commercial deployment of waste heat recovery technology in manufacturing facilities, capturing and repurposing thermal energy to reduce overall energy consumption by 25%. Successfully implemented in 12 industrial sites.",
-    keywords: [
-      "Waste Heat",
-      "Energy Recovery",
-      "Industrial",
-      "Thermal Systems",
-      "Applied Research",
-    ],
+    researchAreaId: "storage",
+    typeId: 5, // Applied Technology
+    summary: "Commercial deployment of waste heat recovery technology in manufacturing...",
+    keywords: ["Waste Heat", "Energy Recovery", "Industrial"],
     url: "https://energy.gov/tech-transfer/example6",
   },
+];
+
+// 6. TABEL IMPACT CONFIGS (Relasi: researchAreaId)
+export const researchImpactConfigs = [
+  { researchAreaId: "solar", patents: 8, phdStudents: 12, funding: "$5.1M" },
+  { researchAreaId: "wind", patents: 5, phdStudents: 9, funding: "$6.8M" },
+  { researchAreaId: "storage", patents: 12, phdStudents: 15, funding: "$9.8M" },
+  { researchAreaId: "grid", patents: 10, phdStudents: 11, funding: "$8.3M" }
 ];

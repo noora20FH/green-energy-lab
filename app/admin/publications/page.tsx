@@ -44,21 +44,27 @@ export default function AdminPublicationsPage() {
   // Form State
   const [formData, setFormData] = useState({
     title: "",
+    researchAreaId: "",
     authors: "",
     journal: "",
     year: new Date().getFullYear().toString(),
-    researchTopic: "",
     type: "Journal Paper",
     url: "",
     summary: "",
   });
 
   // --- LOGIC: PAGINATION CALCULATION ---
-  const totalPages = Math.ceil(publications.length / itemsPerPage);
+// --- LOGIC: PAGINATION CALCULATION ---
+  // 1. SORT DULU (Terbaru di atas)
+  const sortedPublications = [...publications].sort((a, b) => b.year - a.year);
+
+  // 2. HITUNG Pagination dari data yang sudah disortir
+  const totalPages = Math.ceil(sortedPublications.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentData = publications.slice(startIndex, endIndex);
-
+  
+  // 3. AMBIL DATA CURRENT PAGE
+  const currentData = sortedPublications.slice(startIndex, endIndex);
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
@@ -70,11 +76,16 @@ export default function AdminPublicationsPage() {
   // --- HANDLERS ---
   const handleSave = () => {
     const newPub = {
-      ...formData,
       id: Date.now(),
+      title: formData.title,
+      authors: formData.authors,
+      journal: formData.journal,
       year: parseInt(formData.year, 10),
-      typeColor: "bg-blue-100 text-blue-700",
+      researchAreaId: formData.researchAreaId,
+      typeId: 1,
+      summary: formData.summary,
       keywords: [],
+      url: formData.url,
     };
 
     const updatedPubs = [newPub, ...publications];
@@ -88,10 +99,10 @@ export default function AdminPublicationsPage() {
     // Reset form
     setFormData({
       title: "",
+      researchAreaId: "",
       authors: "",
       journal: "",
       year: new Date().getFullYear().toString(),
-      researchTopic: "",
       type: "Journal Paper",
       url: "",
       summary: "",
@@ -195,7 +206,7 @@ export default function AdminPublicationsPage() {
                 <label className="text-sm font-medium">Research Topic</label>
                 <Select
                   onValueChange={(val) =>
-                    setFormData({ ...formData, researchTopic: val })
+                    setFormData({ ...formData, researchAreaId: val })
                   }
                 >
                   <SelectTrigger>
@@ -276,7 +287,7 @@ export default function AdminPublicationsPage() {
                     {pub.year}
                   </Badge>
                   <Badge className="bg-blue-50 text-blue-700 hover:bg-blue-100 border-none">
-                    {pub.researchTopic}
+                    {pub.researchAreaId}
                   </Badge>
                 </div>
 

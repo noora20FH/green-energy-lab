@@ -24,11 +24,17 @@ import {
 import { toast } from "sonner";
 import Autoplay from "embla-carousel-autoplay";
 
-import { publications } from "@/data/mock-data";
-
-export function HomeSections() {
+import { publications, researchAreas } from "@/data/mock-data";
+interface HomeSectionsProps {
+  setActiveTab: (tab: string) => void;
+  setResearchAreaPage: (area: string) => void;
+}
+export function HomeSections({
+  setActiveTab,
+  setResearchAreaPage,
+}: HomeSectionsProps) {
   const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true })
+    Autoplay({ delay: 4000, stopOnInteraction: true }),
   );
 
   const latestPublications = [...publications]
@@ -76,6 +82,8 @@ export function HomeSections() {
                     <Button
                       size="lg"
                       className="bg-green-500 hover:bg-green-600 text-white"
+                      // REDIRECT KE PUBLICATIONS
+                      onClick={() => setActiveTab("publications")}
                     >
                       Explore Research
                       <ArrowRight className="ml-2 h-5 w-5" />
@@ -90,87 +98,46 @@ export function HomeSections() {
         </Carousel>
       </section>
 
-      {/* 2. RESEARCH AREAS (Contained Width) */}
+      {/* 2. RESEARCH AREAS (Dinamis dari Mock Data) */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-24">
           <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
             Our Research Focus
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300 bg-white group">
-              <div className="overflow-hidden h-64">
-                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1542336391-ae2936d8efe4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2xhciUyMHBhbmVsJTIwaW5zdGFsbGF0aW9uJTIwd29ya2Vyc3xlbnwxfHx8fDE3NzAyNjkxOTd8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Solar Energy Research"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-2xl font-bold text-green-900 mb-4">
-                  Solar Energy Systems
-                </h3>
-                <p className="text-zinc-700 mb-4 leading-relaxed line-clamp-3">
-                  Focusing on advanced photovoltaics and efficiency optimization through novel materials and tracking systems.
-                </p>
-                <a
-                  href="#"
-                  className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center group/link"
-                >
-                  Read More
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
-                </a>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300 bg-white group">
-              <div className="overflow-hidden h-64">
-                <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1631874890489-71b1ab6aefb7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aW5kJTIwZW5lcmd5JTIwZW5naW5lZXJzJTIwdGVhbXxlbnwxfHx8fDE3NzAyOTI4OTZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Wind Power Research"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-2xl font-bold text-green-900 mb-4">
-                  Wind Power Optimization
-                </h3>
-                <p className="text-zinc-700 mb-4 leading-relaxed line-clamp-3">
-                   Enhancing turbine performance using AI-driven analytics and predictive maintenance models.
-                </p>
-                <a
-                  href="#"
-                  className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center group/link"
-                >
-                  Read More
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
-                </a>
-              </CardContent>
-            </Card>
-
-            <Card className="overflow-hidden hover:shadow-xl transition-shadow duration-300 bg-white group">
-              <div className="overflow-hidden h-64">
-                <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1591964006776-90b32e88f5ec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYXR0ZXJ5JTIwcmVzZWFyY2glMjBzY2llbnRpc3RzJTIwbGFib3JhdG9yeXxlbnwxfHx8fDE3NzAyOTI4OTd8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Energy Storage Research"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-2xl font-bold text-green-900 mb-4">
-                  Energy Storage
-                </h3>
-                <p className="text-zinc-700 mb-4 leading-relaxed line-clamp-3">
-                  Developing next-generation battery technologies for grid-scale storage solutions.
-                </p>
-                <a
-                  href="#"
-                  className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center group/link"
-                >
-                  Read More
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
-                </a>
-              </CardContent>
-            </Card>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {researchAreas.map((area) => (
+              <Card
+                key={area.id}
+                className="overflow-hidden hover:shadow-xl transition-all duration-300 bg-white group flex flex-col"
+              >
+                <div className="overflow-hidden h-64">
+                  <ImageWithFallback
+                    src={area.image}
+                    alt={area.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <CardContent className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-xl font-bold text-green-900 mb-4">
+                    {area.title}
+                  </h3>
+                  <p className="text-zinc-700 mb-6 leading-relaxed line-clamp-3 text-sm flex-grow">
+                    {area.description}
+                  </p>
+                  <button
+                    onClick={() => {
+                      setActiveTab("research-areas");
+                      setResearchAreaPage(area.id);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center group/link mt-auto"
+                  >
+                    Read More
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover/link:translate-x-1 transition-transform" />
+                  </button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -232,13 +199,16 @@ export function HomeSections() {
         <div className="container mx-auto px-24">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-               <BookOpen className="h-8 w-8 text-green-600" />
-               LATEST PUBLICATIONS
+              <BookOpen className="h-8 w-8 text-green-600" />
+              LATEST PUBLICATIONS
             </h2>
             <div className="mt-4">
-              <Button 
-                variant="ghost" 
-                onClick={() => toast.info("Redirecting to all publications...")}
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  setActiveTab("publications");
+                  window.scrollTo({ top: 0, behavior: "smooth" }); // Opsional: Scroll ke atas agar user tidak bingung
+                }}
                 className="text-zinc-500 hover:text-green-700"
               >
                 See all publications <ArrowRight className="ml-2 h-4 w-4" />
@@ -249,7 +219,10 @@ export function HomeSections() {
           {/* GRID LAYOUT (Untuk menghilangkan white space) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {latestPublications.map((pub) => (
-              <Card key={pub.id} className="hover:shadow-lg transition-all hover:-translate-y-1 h-full border-zinc-200">
+              <Card
+                key={pub.id}
+                className="hover:shadow-lg transition-all hover:-translate-y-1 h-full border-zinc-200"
+              >
                 <CardContent className="p-6 flex flex-col h-full">
                   <div className="flex items-center justify-between mb-4">
                     <Badge
@@ -257,20 +230,23 @@ export function HomeSections() {
                       className="bg-blue-100 text-blue-700 hover:bg-blue-200"
                     >
                       {pub.journal}
+                      {researchAreas.find(a => a.id === pub.researchAreaId)?.title}
                     </Badge>
-                    <span className="text-xs font-mono text-zinc-500 bg-zinc-100 px-2 py-1 rounded">{pub.year}</span>
+                    <span className="text-xs font-mono text-zinc-500 bg-zinc-100 px-2 py-1 rounded">
+                      {pub.year}
+                    </span>
                   </div>
-                  
+
                   <h3 className="text-xl font-bold mb-3 leading-tight text-zinc-800 flex-grow">
                     {pub.title}
                   </h3>
-                  
+
                   <div className="mb-6">
                     <p className="text-sm text-zinc-500 line-clamp-2 italic">
                       {pub.authors}
                     </p>
                   </div>
-                  
+
                   <Button
                     variant="outline"
                     onClick={() => toast.success("Opening publication...")}
