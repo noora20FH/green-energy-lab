@@ -1,7 +1,16 @@
-import React from 'react'
+"use client";
+
+import React, { useEffect } from 'react'
 import { Input } from '@/components/ui/input'
-import { Combobox } from '@/components/ui/combobox'
-import { Pagination } from '@/components/ui/pagination'
+// Update Import Shadcn Pagination (Komponen Standar)
+import { 
+  Pagination, 
+  PaginationContent, 
+  PaginationItem, 
+  PaginationLink, 
+  PaginationNext, 
+  PaginationPrevious 
+} from '@/components/ui/pagination'
 import { PublicationCard } from '@/components/shared/publication-card'
 import { FileSearch } from 'lucide-react'
 
@@ -26,23 +35,36 @@ export function PublicationsSection({
   setCurrentPage
 }: PublicationsSectionProps) {
 
-  // --- FILTERING LOGIC ---
+  const ITEMS_PER_PAGE = 5;
+
+  // --- 1. RESET PAGE ON FILTER CHANGE ---
+  // Sangat penting: Jika user mengetik search, kembalikan ke page 1
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedTopic, setCurrentPage]);
+
+  // --- 2. FILTERING LOGIC ---
   const filteredPublications = publications.filter((pub) => {
-    // 1. Filter by Search Query
     const query = searchQuery.toLowerCase();
     const matchesSearch = 
       pub.title.toLowerCase().includes(query) || 
       pub.summary.toLowerCase().includes(query) ||
       pub.authors.toLowerCase().includes(query);
 
-    // 2. Filter by Topic (Dropdown)
-    // Jika selectedTopic kosong (""), maka tampilkan semua
     const matchesTopic = selectedTopic 
       ? pub.researchTopic === selectedTopic 
       : true;
 
     return matchesSearch && matchesTopic;
   });
+
+  // --- 3. PAGINATION LOGIC (CALCULATION) ---
+  const totalPages = Math.ceil(filteredPublications.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  
+  // Data yang akan ditampilkan (sudah dipotong 5 item)
+  const currentPublications = filteredPublications.slice(startIndex, endIndex);
 
   return (
     <div className="space-y-8 py-12 px-24 ">
@@ -59,15 +81,14 @@ export function PublicationsSection({
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full md:w-80 border-green-200 focus:border-green-500 focus:ring-green-500"
             />
-            
           </div>
         </div>
       </div>
 
-      {/* Publications List - REAL TIME FILTERED */}
+      {/* Publications List - DISPLAY SLICED DATA */}
       <div className="space-y-6">
-        {filteredPublications.length > 0 ? (
-          filteredPublications.map((pub) => (
+        {currentPublications.length > 0 ? (
+          currentPublications.map((pub) => (
             <PublicationCard key={pub.id} publication={pub} />
           ))
         ) : (
@@ -90,9 +111,43 @@ export function PublicationsSection({
         )}
       </div>
 
-      {/* Pagination (Opsional: Disembunyikan jika hasil filter sedikit) */}
-      {filteredPublications.length > 0 && (
-        <Pagination className="justify-center pt-8" />
+      {/* --- 4. PAGINATION UI --- */}
+      {/* Hanya muncul jika total halaman lebih dari 1 */}
+      {totalPages > 1 && (
+        <div className="pt-8">
+          <Pagination>
+            <PaginationContent>
+              {/* Previous Button */}
+              <PaginationItem>
+                <PaginationPrevious 
+                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                />
+              </PaginationItem>
+
+              {/* Page Numbers */}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <PaginationItem key={page}>
+                  <PaginationLink
+                    isActive={page === currentPage}
+                    onClick={() => setCurrentPage(page)}
+                    className="cursor-pointer"
+                  >
+                    {page}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+
+              {/* Next Button */}
+              <PaginationItem>
+                <PaginationNext 
+                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
       )}
     </div>
   )

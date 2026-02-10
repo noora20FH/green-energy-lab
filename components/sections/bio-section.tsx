@@ -85,35 +85,21 @@ export function BioSection() {
         <div className="lg:col-span-9 space-y-10">
           {/* 1. Biography Section */}
           <div>
-            <h2 className="text-3xl font-bold mb-6 text-zinc-900 flex items-center gap-3">
-              Biography
-              <Separator className="flex-1 bg-zinc-200 h-[2px]" />
-            </h2>
-            <div className="prose prose-zinc max-w-none text-zinc-700 leading-relaxed space-y-4 text-lg">
-              <p>
-                Professor James Wilson is a leading researcher in sustainable
-                energy systems with over 20 years of experience in the field. He
-                received his PhD from MIT in 2008 and has since published more
-                than 150 peer-reviewed papers in top-tier journals.
-              </p>
-              <p>
-                His groundbreaking work on advanced photovoltaic systems has
-                earned him numerous accolades, including the prestigious IEEE
-                Medal for Environmental Excellence and the National Science
-                Foundation CAREER Award.
-              </p>
-              <p>
-                Professor Wilson's current research focuses on integrating
-                artificial intelligence with renewable energy systems to create
-                smarter, more efficient power grids. He is passionate about
-                mentoring the next generation of scientists and currently leads
-                a diverse team of 15 PhD students and postdoctoral researchers.
-              </p>
-              <p>
-                Beyond his academic work, Prof. Wilson advises several
-                governmental bodies on renewable energy policy and serves on the
-                board of the International Solar Energy Society.
-              </p>
+            <div className="lg:col-span-6 space-y-6">
+              <div>
+                <h2 className="text-3xl font-bold mb-6 text-zinc-900 flex items-center gap-3">
+                  Biography
+                  <Separator className="flex-1 bg-zinc-200 h-[2px]" />
+                </h2>
+
+                {/* RENDER HTML STRING DI SINI */}
+                <div
+                  className="prose prose-zinc max-w-none text-zinc-700 leading-relaxed text-lg"
+                  dangerouslySetInnerHTML={{
+                    __html: professorProfile.biography,
+                  }}
+                />
+              </div>
             </div>
           </div>
 
@@ -150,12 +136,16 @@ export function BioSection() {
             <div className="bg-white rounded-lg border border-zinc-100 divide-y divide-zinc-100">
               {professorProfile.awards.map((award, idx) => (
                 <div
-                  key={idx} 
+                  key={idx}
                   className="p-4 flex items-center gap-4 hover:bg-zinc-50 transition-colors"
                 >
                   <div className="h-2 w-2 rounded-full bg-green-500 shrink-0" />
-                  <span className="font-medium text-zinc-700">{award.title}</span>
-                  <span className="ml-auto text-sm text-zinc-400">{award.year}</span>
+                  <span className="font-medium text-zinc-700">
+                    {award.title}
+                  </span>
+                  <span className="ml-auto text-sm text-zinc-400">
+                    {award.year}
+                  </span>
                 </div>
               ))}
             </div>
