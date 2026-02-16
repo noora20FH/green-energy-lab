@@ -76,7 +76,7 @@ export function HomeSections({
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex items-end">
-                  <div className="container mx-auto px-24 pb-24 text-white">
+                  <div className="container mx-auto px-4 md:px-24 pb-24 text-white">
                     <h2 className="text-6xl font-bold mb-4">{slide.title}</h2>
                     <p className="text-2xl mb-8">{slide.desc}</p>
                     <Button
@@ -100,7 +100,7 @@ export function HomeSections({
 
       {/* 2. RESEARCH AREAS (Dinamis dari Mock Data) */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-24">
+        <div className="container mx-auto px-4 md:px-24">
           <h2 className="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
             Our Research Focus
           </h2>
@@ -144,7 +144,7 @@ export function HomeSections({
 
       {/* 3. IMPACT SECTION (Full Width Background, Contained Content) */}
       <section className="w-full bg-gradient-to-br from-green-500 via-emerald-500 to-teal-500 py-20">
-        <div className="container mx-auto px-24">
+        <div className="container mx-auto px-4 md:px-24">
           <h2 className="text-4xl font-bold mb-12 text-center text-white">
             Impact & Achievements
           </h2>
@@ -196,7 +196,7 @@ export function HomeSections({
 
       {/* 4. LATEST PUBLICATIONS (Contained Width) */}
       <section className="py-20 bg-zinc-50">
-        <div className="container mx-auto px-24">
+        <div className="container mx-auto px-4 md:px-24">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold inline-flex items-center gap-3 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
               <BookOpen className="h-8 w-8 text-green-600" />
@@ -264,7 +264,7 @@ export function HomeSections({
 
       {/* 5. RESEARCH IN ACTION (Full Width Background) */}
       <section className="w-full bg-gradient-to-r from-green-600 to-blue-600 py-20">
-        <div className="container mx-auto px-24">
+        <div className="container mx-auto px-4 md:px-24">
           <h2 className="text-4xl font-bold mb-4 text-center text-white">
             Research in Action
           </h2>

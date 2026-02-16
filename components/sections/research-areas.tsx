@@ -45,7 +45,7 @@ export function ResearchAreas({ researchArea }: { researchArea: string }) {
       />
 
       {/* Impact Stats Section (Data Dinamis) */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-24">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 md:px-24">
         <h2 className="col-span-full text-3xl font-bold text-center mb-4">Research Impact</h2>
         
         {/* Stat: Publications (Dihitung otomatis dari jumlah data di tabel publikasi) */}
@@ -60,7 +60,7 @@ export function ResearchAreas({ researchArea }: { researchArea: string }) {
       </div>
 
       {/* Key Research Areas */}
-      <div className="px-24">
+      <div className="px-4 md:px-24">
         <Card>
           <CardHeader><CardTitle>Key Research Areas</CardTitle></CardHeader>
           <CardContent>
@@ -76,7 +76,7 @@ export function ResearchAreas({ researchArea }: { researchArea: string }) {
       </div>
 
       {/* Current Projects (Dinamis dari tabel Projects) */}
-      <div className="px-24">
+      <div className="px-4 md:px-24">
         <h2 className="text-3xl font-bold text-center mb-8">Current Projects</h2>
         <div className="space-y-4">
           {areaProjects.map((project) => (
@@ -99,7 +99,7 @@ export function ResearchAreas({ researchArea }: { researchArea: string }) {
       </div>
 
       {/* Research Team (Dinamis dari tabel TeamMembers) */}
-      <div className="px-24">
+      <div className="px-4 md:px-24">
         <h2 className="text-3xl font-bold text-center mb-8">Research Team</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {areaTeam.map((member) => (

@@ -67,7 +67,7 @@ export function PublicationsSection({
   const currentPublications = filteredPublications.slice(startIndex, endIndex);
 
   return (
-    <div className="space-y-8 py-12 px-24 ">
+    <div className="space-y-8 py-12 px-4 md:px-24 ">
       {/* Header with Search/Filter */}
       <div className="py-8 border-b-2 border-green-100">
         <div className="flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
